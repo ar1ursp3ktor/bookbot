@@ -1,13 +1,18 @@
 from stats import *
+import sys
 
 def get_book_text(path_to_file: str) -> str:
     with open(path_to_file) as f:
         return f.read()
 
 def main():
-    text = get_book_text("./books/frankenstein.txt")
-    report_start = """============ BOOKBOT ============
-Analyzing book found at books/frankenstein.txt..."""
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    path_to_book = sys.argv[1]
+    text = get_book_text(path_to_book)
+    report_start = f"""============ BOOKBOT ============
+Analyzing book found at {path_to_book}..."""
     num_words = count_num_words(text)
     report_words = f"""----------- Word Count ----------
     Found {num_words} total words"""
